@@ -1,26 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _velocity;
+    [SerializeField] private float velocity;
+    private Rigidbody _rigidbody;
 
-    void Update()
+    private void Start()
     {
-        var rbody = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody>();
+    }
 
+    // Detect inputs, if not is being pressed, sends 0 as direction to stay on position
+    private void Update()
+    {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rbody.velocity = Vector2.left * _velocity;
+            MovePlayer(Vector2.left);
+            return;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            rbody.velocity = Vector2.right * _velocity;
+            MovePlayer(Vector2.right);
+            return;
         }
-        else
-        {
-            rbody.velocity = Vector2.zero;
-        }
+        
+        MovePlayer(Vector2.zero);
+        
+    }
+
+    
+    private void MovePlayer(Vector2 direction)
+    {
+        _rigidbody.velocity = direction * velocity;
     }
 }
