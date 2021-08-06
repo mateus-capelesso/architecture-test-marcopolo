@@ -252,6 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baafc3ea08f5e4311bfb9614f6fe229a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onPlayerDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &339264369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -688,6 +691,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1122340180306448, guid: ba126b536cd254f439e8b83616958865, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4011843885185824, guid: ba126b536cd254f439e8b83616958865, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

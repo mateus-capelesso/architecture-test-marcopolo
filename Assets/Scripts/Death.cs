@@ -1,13 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
+﻿using UnityEngine;
+using UnityEngine.Events;
 public class Death : MonoBehaviour
 {
+    public UnityEvent onPlayerDeath;
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        GamePlay.Instance.Lives--;
-        GamePlay.Instance.Goal();
+        if (other.CompareTag("Player"))
+        {
+            onPlayerDeath.Invoke();
+        }
+        
+        //TODO: Remove these lines
+        // GamePlay.Instance.Lives--;
+        // GamePlay.Instance.Goal();
     }
 }
