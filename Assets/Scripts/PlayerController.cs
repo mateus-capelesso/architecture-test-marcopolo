@@ -3,11 +3,11 @@
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float velocity;
-    private Rigidbody _rigidbody;
+    private Rigidbody2D _rigidbody;
 
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Detect inputs, if not is being pressed, sends 0 as direction to stay on position
