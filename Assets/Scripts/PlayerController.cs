@@ -2,7 +2,7 @@
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float velocity;
+    [SerializeField] private float velocity = 2f;
     private Rigidbody2D _rigidbody;
 
     private void Start()
@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Detect inputs, if not is being pressed, sends 0 as direction to stay on position
-    private void Update()
+    private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
         }
         
         MovePlayer(Vector2.zero);
-        
     }
 
     

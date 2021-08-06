@@ -1,20 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public float Speed = 1f;
-    
-    public void Kick()
+    public float speed = 1f;
+    private Rigidbody2D _rigidbody;
+
+    private void Start()
     {
-        var rb = GetComponent < Rigidbody2D>();
-        rb.velocity = Random.insideUnitCircle * Speed;
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    // Force kick to go to the bottom of the screen
+    public void Kick()
     {
-        var rb = GetComponent < Rigidbody2D>();
-        rb.velocity = rb.velocity.normalized * Speed;
+        var direction = Random.insideUnitCircle;
+        _rigidbody.velocity =  new Vector2(direction.x, Mathf.Clamp(direction.y, -1f, 0.1f)) * speed;
+    }
+
+    private void FixedUpdate()
+    {
+        _rigidbody.velocity = _rigidbody.velocity.normalized * speed;
     }
 }
