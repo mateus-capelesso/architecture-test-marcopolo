@@ -1,11 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GamePlay : MonoBehaviour
 {
+    # region Singleton
+
     private static GamePlay _instance;
+
     public static GamePlay Instance
     {
         get
@@ -19,92 +25,125 @@ public class GamePlay : MonoBehaviour
             return _instance;
         }
     }
-    
-    public BallController Ball;
-    public PlayerController Player;
-
-    public Text ScoreLabel;
-    public Text LivesLabel;
-    public Text GetReadyLabel;
-
-    public uint Score = 0;
-    public uint Lives = 3;
-
-    uint Briks = 4;
-    private bool _gameOver = false;
 
     private void Awake()
     {
-        if (_instance == null)
+        if (_instance != null) return;
+
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    #endregion
+
+    public int lives = 3;
+    public int bricks = 4;
+
+    private bool _gameOver = false;
+    private int _score;
+    private int _lives;
+
+    [Header("Events")] public UnityEvent onGameStart;
+    public UnityEvent onGameReset;
+
+    public UnityEvent<int> onScoreUpdate;
+    public UnityEvent<int> onLivesUpdate;
+
+    private void Start()
+    {
+        ResetGame();
+    }
+
+    private void ResetGame()
+    {
+        _score = 0;
+        _lives = lives;
+
+        ResetBallPosition();
+    }
+
+    private void ResetBallPosition()
+    {
+        try
         {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
+            onGameReset.Invoke();
+
+            onScoreUpdate.Invoke(_score);
+            onLivesUpdate.Invoke(_lives);
+
+            StartCoroutine(StartGame());
         }
-        
-        Reset();
-    }
-
-    public void Goal()
-    {
-        GetReadyLabel.enabled = true;
-        var pos1 = Player.transform.position;
-        pos1.x = 0f;
-        Player.transform.position = pos1;
-
-        Ball.transform.position = Vector3.zero;
-        Ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
-        ScoreLabel.text = GamePlay.Instance.Score.ToString();
-        LivesLabel.text = GamePlay.Instance.Lives.ToString();
-
-        StartCoroutine(StartGame());
-    }
-
-    private void Reset()
-    {
-        Score = 0;
-        Lives = 3;
-        Briks = 4;
-
-        Goal();
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     private IEnumerator StartGame()
     {
         yield return new WaitForSeconds(3f);
 
-        GetReadyLabel.enabled = false;
-        _gameOver = false;
-        Ball.Kick();
+        try
+        {
+            _gameOver = false;
+            onGameStart.Invoke();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
+    public void DeathZone()
+    {
+        _lives--;
+
+        ResetBallPosition();
+        onLivesUpdate.Invoke(lives);
+        DetectLose();
+    }
+
+    public void BrickDestroyed()
+    {
+        _score++;
+        onScoreUpdate.Invoke(_score);
+        DetectWin();
+    }
+
+    private void DetectWin()
+    {
+        if (_score != bricks) return;
+        SceneManager.LoadScene("Win");
+        _gameOver = true;
+    }
+
+    private void DetectLose()
+    {
+        if (_lives > 0) return;
+        SceneManager.LoadScene("Lose");
+        _gameOver = true;
+    }
+
+    public int GetScore()
+    {
+        return _score;
+    }
+    
     private void Update()
     {
-#if true //debug commands
+#if UNITY_EDITOR //debug commands
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Lives = 0;
+            lives = 0;
+            DetectLose();
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            Score = Briks;
+            _score = bricks;
+            DetectWin();
         }
 #endif
-
-        if (_gameOver) return;
-
-        ScoreLabel.text = GamePlay.Instance.Score.ToString();
-        LivesLabel.text = GamePlay.Instance.Lives.ToString();
-
-        if (Score == Briks)
-        {
-            SceneManager.LoadScene("Win");
-            _gameOver = true;
-        }
-        else if (Lives == 0)
-        {
-            SceneManager.LoadScene("Lose");
-            _gameOver = true;
-        }
     }
 }

@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 233621331}
   - component: {fileID: 233621333}
   - component: {fileID: 233621332}
+  - component: {fileID: 233621334}
   m_Layer: 5
   m_Name: Top Panel
   m_TagString: Untagged
@@ -182,6 +183,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 233621330}
   m_CullTransparentMesh: 0
+--- !u!114 &233621334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233621330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06984acb709af434cbddd922efe10d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: {fileID: 1224135051}
+  lives: {fileID: 965706411}
 --- !u!1 &248808955
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,9 +267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baafc3ea08f5e4311bfb9614f6fe229a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPlayerDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &339264369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1074,7 +1086,7 @@ GameObject:
   - component: {fileID: 1929710742}
   - component: {fileID: 1929710741}
   m_Layer: 5
-  m_Name: GetReady-Text
+  m_Name: Get Ready-Text
   m_TagString: SCORE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1178,13 +1190,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7548814b3d4d4a348f08f0b13ac286e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ball: {fileID: 727422821}
-  Player: {fileID: 1296840749}
-  ScoreLabel: {fileID: 1224135051}
-  LivesLabel: {fileID: 965706411}
-  GetReadyLabel: {fileID: 1929710741}
-  Score: 0
-  Lives: 3
+  score: 0
+  lives: 3
+  bricks: 4
+  onGameStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 727422821}
+        m_MethodName: Kick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1929710739}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onGameReset:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 727422821}
+        m_MethodName: ResetBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1296840749}
+        m_MethodName: ResetPosition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1929710739}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!50 &2013758440
 Rigidbody2D:
   serializedVersion: 4

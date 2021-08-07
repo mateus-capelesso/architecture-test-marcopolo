@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
         MovePlayer(Vector2.zero);
     }
 
+    public void ResetPosition()
+    {
+        var position = transform.position;
+        transform.position = new Vector3(0f, position.y, position.z);
+    }
     
     private void MovePlayer(Vector2 direction)
     {

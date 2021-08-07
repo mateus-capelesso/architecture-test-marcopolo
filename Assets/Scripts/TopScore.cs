@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TopScore : MonoBehaviour
 {
-    public Text Label;
+    public Text label;
     
     private void Awake()
     {
-        var n = GamePlay.Instance.Score;
-        Label.text += n.ToString();
+        label.text += GamePlay.Instance.GetScore().ToString();
     }
 }
