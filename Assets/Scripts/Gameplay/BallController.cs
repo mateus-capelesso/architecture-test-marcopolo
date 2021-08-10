@@ -20,11 +20,11 @@ namespace Gameplay
         }
 
 
-// Force kick to go to the bottom of the screen
+        // Force kick to go to the bottom of the screen
         public void Kick()
         {
             var direction = Random.insideUnitCircle;
-            _rigidbody.velocity =  new Vector2(direction.x, Mathf.Clamp(direction.y, -1f, 0.1f)) * speed;
+            _rigidbody.velocity =  new Vector2(direction.x, Mathf.Clamp(direction.y, -1f, -0.5f)) * speed;
         }
 
 

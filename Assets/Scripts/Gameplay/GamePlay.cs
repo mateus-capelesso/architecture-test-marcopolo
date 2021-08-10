@@ -9,6 +9,7 @@ namespace Gameplay
     {
         public int lives = 3;
         public int bricks = 4;
+        public BrickSpawner brickSpawner;
     
         private int _score;
         private int _lives;
@@ -37,6 +38,7 @@ namespace Gameplay
             _lives = lives;
 
             ResetBallPosition();
+            brickSpawner.SpawnBricks(this, bricks);
         }
 
         private void ResetBallPosition()
@@ -77,7 +79,6 @@ namespace Gameplay
             _lives--;
 
             ResetBallPosition();
-            onLivesUpdate.Invoke(lives);
             DetectLose();
         }
 

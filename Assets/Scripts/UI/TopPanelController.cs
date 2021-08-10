@@ -17,6 +17,12 @@ namespace UI
             gameplay.onScoreUpdate += UpdateScoreText;
         }
 
+        public void RemoveListeners()
+        {
+            gameplay.onLivesUpdate -= UpdateLivesText;
+            gameplay.onScoreUpdate -= UpdateScoreText;
+        }
+
         private void UpdateLivesText(int value)
         {
             lives.text = "Lives: " + value;

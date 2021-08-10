@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
     private StateMachine _stateMachine;
 
     public GamePlay brickGameplay;
-    public Action<int> onLevelOver;
+    public UnityEvent onLevelOver;
+    public Action<int> onTotalPointsAvailable;
 
     private void Start()
     {
@@ -60,17 +61,7 @@ public class GameManager : MonoBehaviour
     {
         _stateMachine.SetGameOverState(win);
         brickGameplay.CloseGameplay();
-        
-        // TODO: Fix event assignment
-        // if (win) return;
-        // try
-        // {
-        //     onLevelOver.Invoke(points);
-        // }
-        // catch (Exception e)
-        // {
-        //     Console.WriteLine(e);
-        //     throw;
-        // }
+        onLevelOver.Invoke();
+        onTotalPointsAvailable.Invoke(points);
     }
 }

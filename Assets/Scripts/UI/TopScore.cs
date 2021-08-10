@@ -5,11 +5,11 @@ namespace UI
 {
     public class TopScore : MonoBehaviour
     {
-        private Text _label;
-    
+        public Text _label;
+
         private void Start()
         {
-            GameManager.Instance.onLevelOver += SetText;
+            GameManager.Instance.onTotalPointsAvailable += SetText;
         }
 
         private void SetText(int points)

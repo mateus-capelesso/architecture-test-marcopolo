@@ -5,13 +5,13 @@ namespace Gameplay
 {
     public class BrickController : MonoBehaviour
     {
-        public UnityEvent onBrickDestroied;
+        public UnityEvent onBrickDestroyed;
     
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (!other.transform.CompareTag("Player")) return;
+            if (!other.transform.CompareTag("Ball")) return;
         
-            onBrickDestroied.Invoke();
+            onBrickDestroyed.Invoke();
             Destroy(gameObject);
         }
     }
