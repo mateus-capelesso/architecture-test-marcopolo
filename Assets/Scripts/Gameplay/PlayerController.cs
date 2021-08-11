@@ -8,7 +8,7 @@ namespace Gameplay
         private enum InputConstraints {Left, Right, None}
         [SerializeField] private float velocity = 2f;
         private Rigidbody2D _rigidbody;
-        [SerializeField] private InputConstraints _constraints = InputConstraints.None;
+        private InputConstraints _constraints = InputConstraints.None;
 
         private void Start()
         {

@@ -26,7 +26,5 @@ namespace Gameplay
             var direction = Random.insideUnitCircle;
             _rigidbody.velocity =  new Vector2(direction.x, Mathf.Clamp(direction.y, -1f, -0.5f)) * speed;
         }
-
-
     }
 }

@@ -5,7 +5,7 @@ namespace UI
 {
     public class TopScore : MonoBehaviour
     {
-        public Text _label;
+        public Text label;
 
         private void Start()
         {
@@ -14,7 +14,7 @@ namespace UI
 
         private void SetText(int points)
         {
-            _label.text += points.ToString();
+            label.text += points.ToString();
         }
     }
 }
